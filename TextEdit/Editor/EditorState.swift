@@ -29,12 +29,13 @@ final class EditorState: ObservableObject {
 
     func toggleTrait(_ trait: UIFontDescriptor.SymbolicTraits) {
         guard let tv = activeTextView else { return }
-        let range = tv.selectedRange
-        let baseFont = (currentAttributes(in: tv)[.font] as? UIFont) ?? tv.font ?? .systemFont(ofSize: fontSize)
-        var traits = baseFont.fontDescriptor.symbolicTraits
-        if traits.contains(trait) { traits.remove(trait) } else { traits.insert(trait) }
-        let desc = baseFont.fontDescriptor.withSymbolicTraits(traits) ?? baseFont.fontDescriptor
-        applyAttribute(.font, value: UIFont(descriptor: desc, size: max(8, fontSize)), range: range)
+        applyToSelectionOrTypingAttributes(in: tv) { attrs in
+            let baseFont = (attrs[.font] as? UIFont) ?? tv.font ?? .systemFont(ofSize: fontSize)
+            var traits = baseFont.fontDescriptor.symbolicTraits
+            if traits.contains(trait) { traits.remove(trait) } else { traits.insert(trait) }
+            let desc = baseFont.fontDescriptor.withSymbolicTraits(traits) ?? baseFont.fontDescriptor
+            return [.font: UIFont(descriptor: desc, size: baseFont.pointSize)]
+        }
     }
 
     func toggleUnderline() { toggleIntAttribute(.underlineStyle, onValue: NSUnderlineStyle.single.rawValue) }
@@ -42,16 +43,20 @@ final class EditorState: ObservableObject {
 
     private func toggleIntAttribute(_ key: NSAttributedString.Key, onValue: Int) {
         guard let tv = activeTextView else { return }
-        let current = (currentAttributes(in: tv)[key] as? Int) ?? 0
-        applyAttribute(key, value: current == 0 ? onValue : 0, range: tv.selectedRange)
+        applyToSelectionOrTypingAttributes(in: tv) { attrs in
+            let current = (attrs[key] as? Int) ?? 0
+            return [key: current == 0 ? onValue : 0]
+        }
     }
 
     func setFontSize(_ size: CGFloat) {
         guard let tv = activeTextView else { return }
         fontSize = max(8, size)
-        let baseFont = (currentAttributes(in: tv)[.font] as? UIFont) ?? .systemFont(ofSize: fontSize)
-        let descriptor = baseFont.fontDescriptor
-        applyAttribute(.font, value: UIFont(descriptor: descriptor, size: fontSize), range: tv.selectedRange)
+        applyToSelectionOrTypingAttributes(in: tv) { attrs in
+            let baseFont = (attrs[.font] as? UIFont) ?? tv.font ?? .systemFont(ofSize: fontSize)
+            let descriptor = baseFont.fontDescriptor
+            return [.font: UIFont(descriptor: descriptor, size: fontSize)]
+        }
     }
 
     func setAlignment(_ alignment: NSTextAlignment) {
@@ -59,7 +64,9 @@ final class EditorState: ObservableObject {
         self.alignment = alignment
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = alignment
-        applyAttribute(.paragraphStyle, value: paragraph, range: tv.selectedRange)
+        applyToSelectionOrTypingAttributes(in: tv) { _ in
+            [.paragraphStyle: paragraph]
+        }
     }
 
     func insertBullet() {
@@ -85,16 +92,34 @@ final class EditorState: ObservableObject {
     private func applyAttribute(_ key: NSAttributedString.Key, value: Any, range: NSRange) {
         guard let tv = activeTextView else { return }
         let mutable = NSMutableAttributedString(attributedString: tv.attributedText ?? NSAttributedString())
-        if mutable.length == 0 {
+        if range.length == 0 || mutable.length == 0 {
             tv.typingAttributes[key] = value
             refreshState()
             return
         }
-        let safeRange = range.length == 0 ? NSRange(location: min(max(0, range.location), max(0, mutable.length - 1)), length: 1) : range
-        mutable.addAttribute(key, value: value, range: safeRange)
+        mutable.addAttribute(key, value: value, range: range)
         tv.attributedText = mutable
         tv.selectedRange = range
         tv.delegate?.textViewDidChange?(tv)
         refreshState()
+    }
+
+    private func applyToSelectionOrTypingAttributes(
+        in tv: UITextView,
+        updates: ([NSAttributedString.Key: Any]) -> [NSAttributedString.Key: Any]
+    ) {
+        let attrs = currentAttributes(in: tv)
+        let changed = updates(attrs)
+        let range = tv.selectedRange
+        if range.length > 0 {
+            for (key, value) in changed {
+                applyAttribute(key, value: value, range: range)
+            }
+        } else {
+            for (key, value) in changed {
+                tv.typingAttributes[key] = value
+            }
+            refreshState()
+        }
     }
 }
