@@ -2,11 +2,18 @@ import SwiftUI
 
 struct DocumentListView: View {
     @EnvironmentObject var store: DocumentStore
+    @State private var searchText = ""
+
+    private var filteredDocuments: [TextDocument] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return store.documents }
+        return store.documents.filter { $0.title.localizedCaseInsensitiveContains(query) }
+    }
 
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 12) {
-                ForEach(store.documents) { doc in
+                ForEach(filteredDocuments) { doc in
                     NavigationLink(value: doc.id) {
                         HStack(spacing: 12) {
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
@@ -33,7 +40,7 @@ struct DocumentListView: View {
         }
         .background(Color(uiColor: .secondarySystemBackground))
         .navigationTitle("All Documents")
-        .searchable(text: .constant(""))
+        .searchable(text: $searchText)
         .navigationDestination(for: TextDocument.ID.self) { id in
             if let doc = store.documents.first(where: { $0.id == id }) { EditorScreen(document: doc) }
         }
