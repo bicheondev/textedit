@@ -1,0 +1,69 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+A001 = {isa = PBXBuildFile; fileRef = F001; };
+A002 = {isa = PBXBuildFile; fileRef = F002; };
+A003 = {isa = PBXBuildFile; fileRef = F003; };
+A004 = {isa = PBXBuildFile; fileRef = F004; };
+A005 = {isa = PBXBuildFile; fileRef = F005; };
+A006 = {isa = PBXBuildFile; fileRef = F006; };
+A007 = {isa = PBXBuildFile; fileRef = F007; };
+A008 = {isa = PBXBuildFile; fileRef = F008; };
+A009 = {isa = PBXBuildFile; fileRef = F009; };
+A010 = {isa = PBXBuildFile; fileRef = F010; };
+A011 = {isa = PBXBuildFile; fileRef = F011; };
+A012 = {isa = PBXBuildFile; fileRef = F012; };
+A013 = {isa = PBXBuildFile; fileRef = F013; };
+A014 = {isa = PBXBuildFile; fileRef = F014; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+P001 = {isa = PBXFileReference; explicitFileType = wrapper.application; path = TextEdit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+F001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditApp.swift; sourceTree = "<group>"; };
+F002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
+F003 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
+F004 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextSerializer.swift; sourceTree = "<group>"; };
+F005 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+F006 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorState.swift; sourceTree = "<group>"; };
+F007 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextView.swift; sourceTree = "<group>"; };
+F008 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+F009 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellViews.swift; sourceTree = "<group>"; };
+F010 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+F011 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListView.swift; sourceTree = "<group>"; };
+F012 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScreen.swift; sourceTree = "<group>"; };
+F013 = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+F014 = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+G0 = {isa = PBXGroup; children = (G1,G2); sourceTree = "<group>"; };
+G1 = {isa = PBXGroup; path = TextEdit; sourceTree = "<group>"; children = (GA,GM,GS,GE,GV,GR,F014); };
+GA = {isa = PBXGroup; path = App; sourceTree = "<group>"; children = (F001); };
+GM = {isa = PBXGroup; path = Models; sourceTree = "<group>"; children = (F002); };
+GS = {isa = PBXGroup; path = Services; sourceTree = "<group>"; children = (F003,F004,F005); };
+GE = {isa = PBXGroup; path = Editor; sourceTree = "<group>"; children = (F006,F007); };
+GV = {isa = PBXGroup; path = Views; sourceTree = "<group>"; children = (F008,F009,F010,F011,F012); };
+GR = {isa = PBXGroup; path = Resources; sourceTree = "<group>"; children = (F013); };
+G2 = {isa = PBXGroup; name = Products; sourceTree = "<group>"; children = (P001); };
+/* End PBXGroup section */
+
+T0 = {isa = PBXNativeTarget; name = TextEdit; productName = TextEdit; productReference = P001; productType = "com.apple.product-type.application"; buildConfigurationList = C2; buildPhases = (B1,B2,B3); buildRules = (); dependencies = (); };
+B1 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A001,A002,A003,A004,A005,A006,A007,A008,A009,A010,A011,A012); runOnlyForDeploymentPostprocessing = 0; };
+B2 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+B3 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (A013,A014); runOnlyForDeploymentPostprocessing = 0; };
+
+P0 = {isa = PBXProject; buildConfigurationList = C1; compatibilityVersion = "Xcode 15.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en,Base); mainGroup = G0; productRefGroup = G2; projectDirPath = ""; projectRoot = ""; targets = (T0); };
+C1 = {isa = XCConfigurationList; buildConfigurations = (D1,R1); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+C2 = {isa = XCConfigurationList; buildConfigurations = (D2,R2); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+D1 = {isa = XCBuildConfiguration; name = Debug; buildSettings = {CODE_SIGN_STYLE = Automatic; DEVELOPMENT_TEAM = ""; }; };
+R1 = {isa = XCBuildConfiguration; name = Release; buildSettings = {CODE_SIGN_STYLE = Automatic; DEVELOPMENT_TEAM = ""; }; };
+D2 = {isa = XCBuildConfiguration; name = Debug; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = TextEdit/Resources/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = com.example.TextEdit; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0;}; };
+R2 = {isa = XCBuildConfiguration; name = Release; buildSettings = {ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = TextEdit/Resources/Info.plist; PRODUCT_BUNDLE_IDENTIFIER = com.example.TextEdit; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; IPHONEOS_DEPLOYMENT_TARGET = 17.0;}; };
+	};
+	rootObject = P0;
+}
