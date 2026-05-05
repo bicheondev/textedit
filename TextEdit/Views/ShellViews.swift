@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PadShellView: View {
     @EnvironmentObject var store: DocumentStore
+
     var body: some View {
         NavigationSplitView(columnVisibility: .constant(.all)) {
             SidebarView()
@@ -21,6 +22,8 @@ struct PadShellView: View {
 
 struct PhoneShellView: View {
     var body: some View {
-        NavigationStack { DocumentListView() }
+        NavigationStack {
+            DocumentListView()
+        }
     }
 }

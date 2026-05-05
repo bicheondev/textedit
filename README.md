@@ -39,6 +39,7 @@ Not implemented yet (planned):
 - [ ] Confirm first-launch sample documents appear
 - [ ] Open **Intro to Ecology** and verify it displays/editable
 - [ ] Apply bold/italic/underline on selected text
+- [ ] Verify active-state button highlighting for formatting controls
 - [ ] Change font size and alignment for current typing attributes
 - [ ] Test Korean IME composition and ensure toolbar commands do not corrupt marked text
 - [ ] Relaunch app and verify edits persist

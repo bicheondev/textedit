@@ -8,15 +8,18 @@ struct SidebarView: View {
                 Label("Recents", systemImage: "clock")
                 Label("Shared", systemImage: "person.2")
             }
+
             Section("Favorites") {
                 Label("Intro to Ecology", systemImage: "doc")
                 Label("Poetry Study", systemImage: "star")
             }
+
             Section("Locations") {
                 Label("iCloud Drive", systemImage: "cloud")
                 Label("On My iPad", systemImage: "ipad")
                 Label("Recently Deleted", systemImage: "trash")
             }
+
             Section("Tags") {
                 tag("School", .green)
                 tag("Notes", .blue)
@@ -32,6 +35,12 @@ struct SidebarView: View {
     }
 
     private func tag(_ t: String, _ c: Color) -> some View {
-        Label { Text(t) } icon: { Circle().fill(c).frame(width: 10, height: 10) }
+        Label {
+            Text(t)
+        } icon: {
+            Circle()
+                .fill(c)
+                .frame(width: 10, height: 10)
+        }
     }
 }
