@@ -28,6 +28,7 @@ struct RichTextView: UIViewRepresentable {
     final class Coordinator: NSObject, UITextViewDelegate {
         var parent: RichTextView
         init(parent: RichTextView) { self.parent = parent }
-        func textViewDidChange(_ textView: UITextView) { parent.text = textView.attributedText }
+        func textViewDidChange(_ textView: UITextView) { parent.text = textView.attributedText; parent.editorState.refreshState() }
+        func textViewDidChangeSelection(_ textView: UITextView) { parent.editorState.refreshState() }
     }
 }

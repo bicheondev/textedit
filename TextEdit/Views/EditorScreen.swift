@@ -38,16 +38,16 @@ struct EditorScreen: View {
                     }
                 }
                 Spacer()
-                Button { editorState.toggleTrait(.traitBold) } label: { Image(systemName: "bold") }
-                Button { editorState.toggleTrait(.traitItalic) } label: { Image(systemName: "italic") }
-                Button { editorState.toggleUnderline() } label: { Image(systemName: "underline") }
-                Button { editorState.toggleStrikethrough() } label: { Image(systemName: "strikethrough") }
+                formatButton("bold", active: editorState.isBold) { editorState.toggleTrait(.traitBold) }
+                formatButton("italic", active: editorState.isItalic) { editorState.toggleTrait(.traitItalic) }
+                formatButton("underline", active: editorState.isUnderline) { editorState.toggleUnderline() }
+                formatButton("strikethrough", active: editorState.isStrikethrough) { editorState.toggleStrikethrough() }
             }
             HStack(spacing: 8) {
-                Button { editorState.setAlignment(.left) } label: { Image(systemName: "text.alignleft") }
-                Button { editorState.setAlignment(.center) } label: { Image(systemName: "text.aligncenter") }
-                Button { editorState.setAlignment(.right) } label: { Image(systemName: "text.alignright") }
-                Button { editorState.insertBullet() } label: { Image(systemName: "list.bullet") }
+                formatButton("text.alignleft", active: editorState.alignment == .left) { editorState.setAlignment(.left) }
+                formatButton("text.aligncenter", active: editorState.alignment == .center) { editorState.setAlignment(.center) }
+                formatButton("text.alignright", active: editorState.alignment == .right) { editorState.setAlignment(.right) }
+                formatButton("list.bullet", active: false) { editorState.insertBullet() }
             }
         }
         .buttonStyle(.plain)
@@ -55,4 +55,12 @@ struct EditorScreen: View {
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24))
         .shadow(color: .black.opacity(0.08), radius: 16, y: 8)
     }
+
+    private func formatButton(_ icon: String, active: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: icon).frame(width: 28, height: 28)
+        }
+        .background(active ? Color.green.opacity(0.15) : .clear, in: RoundedRectangle(cornerRadius: 8))
+    }
 }
+

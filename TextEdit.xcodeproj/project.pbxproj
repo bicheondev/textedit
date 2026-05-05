@@ -20,7 +20,6 @@ A011 = {isa = PBXBuildFile; fileRef = F011; };
 A012 = {isa = PBXBuildFile; fileRef = F012; };
 A013 = {isa = PBXBuildFile; fileRef = F013; };
 A014 = {isa = PBXBuildFile; fileRef = F014; };
-A015 = {isa = PBXBuildFile; fileRef = F015; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +38,6 @@ F011 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doc
 F012 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScreen.swift; sourceTree = "<group>"; };
 F013 = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 F014 = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-F015 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGPlaceholder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
