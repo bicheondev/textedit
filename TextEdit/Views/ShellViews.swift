@@ -21,9 +21,19 @@ struct PadShellView: View {
 }
 
 struct PhoneShellView: View {
+    @EnvironmentObject var store: DocumentStore
+    @State private var path: [TextDocument.ID] = []
+
     var body: some View {
-        NavigationStack {
-            DocumentListView()
+        NavigationStack(path: $path) {
+            DocumentListView { id in
+                path.append(id)
+            }
+            .navigationDestination(for: TextDocument.ID.self) { id in
+                if let doc = store.documents.first(where: { $0.id == id }) {
+                    EditorScreen(document: doc)
+                }
+            }
         }
     }
 }
