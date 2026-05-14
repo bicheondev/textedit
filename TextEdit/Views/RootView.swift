@@ -4,6 +4,6 @@ struct RootView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
 
     var body: some View {
-        if sizeClass == .compact { PhoneShellView() } else { PadShellView() }
+        if sizeClass == .regular { PadShellView() } else { PhoneShellView() }
     }
 }
